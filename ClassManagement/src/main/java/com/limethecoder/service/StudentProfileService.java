@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface StudentProfileService {
     List<StudentProfile> findAll(int limit);
-    Optional<StudentProfile> findByStudentId(String id);
+    StudentProfile findStudentByKey(String key);
     StudentProfile createStudentProfile(StudentProfile studentProfile);
+    StudentProfile updateStudentProfile(String key, StudentProfile studentProfile);
 }
