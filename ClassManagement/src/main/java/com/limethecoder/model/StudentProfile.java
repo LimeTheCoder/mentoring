@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,4 +16,8 @@ import javax.persistence.Table;
 public class StudentProfile extends UserProfile {
     @Column(name = "enrollment_year")
     private int enrollmentYear;
+
+    @ManyToOne
+    @JoinColumn(name = "class_id")
+    private SchoolClass schoolClass;
 }
