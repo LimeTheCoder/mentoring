@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/classes")
+@RequestMapping("/class")
 public class ClassManagementController {
     private ClassManagementService classManagementService;
 
@@ -21,12 +21,12 @@ public class ClassManagementController {
         this.classManagementService = classManagementService;
     }
 
-    @GetMapping(path = "/{classId}/students")
+    @GetMapping(path = "/{classId}/student")
     public List<StudentProfile> getStudentsInClass(@PathVariable Long classId) {
         return classManagementService.findStudentsInClass(classId);
     }
 
-    @PostMapping(path = "/{classId}/students/{studentKey}")
+    @PostMapping(path = "/{classId}/student/{studentKey}")
     public void addStudentToClass(@PathVariable Long classId, @PathVariable String studentKey) {
         classManagementService.addStudentToSchoolClass(classId, studentKey);
     }
