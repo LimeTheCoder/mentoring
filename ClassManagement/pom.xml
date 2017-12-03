@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.limethecoder</groupId>
-    <artifactId>class.management</artifactId>
+    <artifactId>class-management</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <parent>
@@ -46,13 +46,38 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <docker.baseDir>src/main/docker</docker.baseDir>
     </properties>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.14</version>
+                <configuration>
+                    <imageName>limethecoder/${project.artifactId}</imageName>
+                    <dockerDirectory>${docker.baseDir}</dockerDirectory>
+                    <dockerHost>https://192.168.99.100:2376</dockerHost>
+                    <dockerCertPath>C:/Users/LimeTheCoder/.docker/machine/machines/default</dockerCertPath>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${docker.baseDir}</directory>
+                            <include>startup.sh</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>

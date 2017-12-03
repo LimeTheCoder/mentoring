@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  class-management-mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=class-management
+      - MYSQL_USER=terry
+      - MYSQL_PASSWORD=root
+  class-management-service:
+    image: limethecoder/class-management
+    depends_on:
+      - class-management-mysql
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_HOST=class-management-mysql
+      - DATABASE_USER=terry
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=class-management
+      - DATABASE_PORT=3306
